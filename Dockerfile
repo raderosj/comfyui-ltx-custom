@@ -19,7 +19,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI /ComfyUI && \
     pip3 install -r requirements.txt && \
     pip3 install sqlalchemy gdown
 
-# Только то, что нужно для LTX ID-LoRA воркфлоу
+# Клонирование кастомных нод
 RUN cd /ComfyUI/custom_nodes && \
     git clone https://github.com/kijai/ComfyUI-LTXVideo && \
     cd ComfyUI-LTXVideo && pip3 install -r requirements.txt && cd .. && \
@@ -28,7 +28,6 @@ RUN cd /ComfyUI/custom_nodes && \
     cd ComfyUI-VideoHelperSuite && pip3 install -r requirements.txt && cd .. && \
     git clone https://github.com/Fannovel16/comfyui_controlnet_aux && \
     cd comfyui_controlnet_aux && pip3 install -r requirements.txt && cd .. && \
-    git clone https://github.com/chrisgoringe/ComfyUI-TextInput && \
     git clone https://github.com/rgthree/rgthree-comfy
 
 COPY start.sh /start.sh
