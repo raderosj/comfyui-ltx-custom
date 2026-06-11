@@ -8,22 +8,26 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# PyTorch уже установлен в базовом образе, не нужно переустанавливать!
-# Просто обновляем если нужно
-RUN pip3 install --upgrade torch torchvision torchaudio
-
-RUN pip3 install gguf opencv-python-headless
+# Установка точной версии kornia и других зависимостей
+RUN pip3 install kornia==0.7.3 \
+    imageio-ffmpeg \
+    matplotlib \
+    opencv-python-headless
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI /ComfyUI && \
     cd /ComfyUI && \
     pip3 install -r requirements.txt && \
     pip3 install sqlalchemy gdown
 
+# Клонирование и установка кастомных нод с их зависимостями
 RUN cd /ComfyUI/custom_nodes && \
     git clone https://github.com/kijai/ComfyUI-LTXVideo && \
+    cd ComfyUI-LTXVideo && pip3 install -r requirements.txt && cd .. && \
     git clone https://github.com/kijai/ComfyUI-KJNodes && \
     git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite && \
-    git clone https://github.com/Fannovel16/comfyui_controlnet_aux
+    cd ComfyUI-VideoHelperSuite && pip3 install -r requirements.txt && cd .. && \
+    git clone https://github.com/Fannovel16/comfyui_controlnet_aux && \
+    cd comfyui_controlnet_aux && pip3 install -r requirements.txt && cd ..
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
