@@ -34,5 +34,5 @@ snapshot_download(
 echo "✅ Все модели скачаны!"
 
 echo ""
-echo "🚀 Запускаем ComfyUI с флагами LOW_VRAM..."
-python3 /ComfyUI/main.py --listen 0.0.0.0 --port 8188 --lowvram --disable-smart-memory
+echo "🚀 Запускаем ComfyUI (без lowvram, для мощной видеокарты)..."
+python3 /ComfyUI/main.py --listen 0.0.0.0 --port 8188
